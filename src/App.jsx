@@ -19,9 +19,19 @@ function App() {
 
   const getStrategy = () => {
     const dealerCard = dealer?.deger === "A" ? "A" : dealer?.puan;
-    let strategy = SrategyData[`${dealerCard}`][`${card1?.puan+card2.puan}`]
+    const totalCard = card1?.puan + card2.puan > 17 ? 17 : card1?.puan + card2.puan
+    let strategy = SrategyData[`${dealerCard}`][`${totalCard}`];
+
+    if (card1.deger === "A" || card2?.deger === 'A') {
+      const aceCard = card1.deger === "A" ? card2?.puan : card1?.puan;
+      strategy = SrategyData[`${dealerCard}`][`A${aceCard}`];
+    }
+
+    if (card1.deger === card2?.deger) {
+      strategy = SrategyData[`${dealerCard}`][`${card1.puan}${card2.puan}`];
+
+    }
     const messages = MessagesData[`${strategy}`]
-    console.log('xxx', {card1, card2, dealer});
     setShowSnackbar(true);
     setMessageSnackbar(messages)
   }
