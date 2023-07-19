@@ -22,11 +22,11 @@ const Card = ({ open, setOpen, setValue }) => {
             >
                 <DialogContent>
                     <DialogContentText component="span" id="alert-dialog-slide-description">
-                        <Grid display="flex" flexDirection="row" justifyContent="center" flexWrap="wrap" spacing={2} gap={2} >
+                        <Box display="flex" flexDirection="row" justifyContent="center" flexWrap="wrap" spacing={2} gap={2} >
                             {
                                 CardsData.map((card) => {
                                     return (
-                                        <Paper onClick={() =>{setValue(card); handleClose();} } sx={{ width: '80px', cursor: 'pointer' }} elevation={3} >
+                                        <Paper key={`cards${card?.deger}${card?.value}`} onClick={() =>{setValue(card); handleClose();} } sx={{ width: '80px', cursor: 'pointer' }} elevation={3} >
                                             <Typography sx={{ textAlign: 'center' }} variant="h3" component="h3">
                                                 {card.deger}
                                             </Typography>
@@ -34,7 +34,7 @@ const Card = ({ open, setOpen, setValue }) => {
                                     )
                                 })
                             }
-                        </Grid>
+                        </Box>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

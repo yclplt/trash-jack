@@ -1,18 +1,48 @@
-import { useState } from 'react'
-import { Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { Grid, Snackbar } from '@mui/material';
 import Card from './Components/Card'
+import SrategyData from './Data/StrategyData';
+import MessagesData from './Data/MessagesData';
+
 function App() {
+  const [card1, setCard1] = React.useState(null);
+  const [card2, setCard2] = React.useState(null);
+  const [dealer, setDealer] = React.useState(null);
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  const [messageSnackbar, setMessageSnackbar] = React.useState("");
+
+  useEffect(() => {
+    if (card1 && card2 && dealer) {
+      getStrategy();
+    }
+  }, [card1, card2, dealer]);
+
+  const getStrategy = () => {
+    const dealerCard = dealer?.deger === "A" ? "A" : dealer?.puan;
+    let strategy = SrategyData[`${dealerCard}`][`${card1?.puan+card2.puan}`]
+    const messages = MessagesData[`${strategy}`]
+    console.log('xxx', {card1, card2, dealer});
+    setShowSnackbar(true);
+    setMessageSnackbar(messages)
+  }
 
   return (
-    <Grid container spacing={2} gap={2}>
-      <Grid item xs={12} display="flex" justifyContent="center">
-          <Card />
+    <>
+      <Grid container spacing={2} gap={2}>
+        <Grid item xs={12} display="flex" justifyContent="center">
+          <Card onChange={(value) => setDealer(value)} />
+        </Grid>
+        <Grid gap={2} item xs={12} flexDirection="row" display="flex" justifyContent="center">
+          <Card onChange={(value) => setCard1(value)} />
+          <Card onChange={(value) => setCard2(value)} />
+        </Grid>
       </Grid>
-      <Grid  gap={2} item xs={12} flexDirection="row" display="flex" justifyContent="center">
-          <Card />
-          <Card />
-      </Grid>
-    </Grid>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={showSnackbar}
+        message={messageSnackbar}
+      />
+    </>
   )
 }
 
