@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Grid, Snackbar } from '@mui/material';
 import Card from './Components/Card'
-import SrategyData from './Data/StrategyData';
+import StrategyData from './Data/strategyData.js';
 import MessagesData from './Data/MessagesData';
 
 function App() {
@@ -20,15 +20,15 @@ function App() {
   const getStrategy = () => {
     const dealerCard = dealer?.deger === "A" ? "A" : dealer?.puan;
     const totalCard = card1?.puan + card2.puan > 17 ? 17 : card1?.puan + card2.puan
-    let strategy = SrategyData[`${dealerCard}`][`${totalCard}`];
+    let strategy = StrategyData[`${dealerCard}`][`${totalCard}`];
 
     if (card1.deger === "A" || card2?.deger === 'A') {
       const aceCard = card1.deger === "A" ? card2?.puan : card1?.puan;
-      strategy = SrategyData[`${dealerCard}`][`A${aceCard}`];
+      strategy = StrategyData[`${dealerCard}`][`A${aceCard}`];
     }
 
     if (card1.deger === card2?.deger) {
-      strategy = SrategyData[`${dealerCard}`][`${card1.puan}${card2.puan}`];
+      strategy = StrategyData[`${dealerCard}`][`${card1.puan}${card2.puan}`];
 
     }
     const messages = MessagesData[`${strategy}`]
