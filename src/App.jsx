@@ -23,7 +23,8 @@ function App() {
     let strategy = StrategyData[`${dealerCard}`][`${totalCard}`];
 
     if (card1.deger === "A" || card2?.deger === 'A') {
-      const aceCard = card1.deger === "A" ? card2?.puan : card1?.puan;
+      let aceCard = card1.deger === "A" ? card2?.puan : card1?.puan;
+      aceCard = aceCard > 8 ? 8 : aceCard;
       strategy = StrategyData[`${dealerCard}`][`A${aceCard}`];
     }
 
@@ -38,8 +39,8 @@ function App() {
 
   return (
     <>
-      <Grid container spacing={2} gap={2}>
-        <Grid item xs={12} display="flex" justifyContent="center">
+      <Grid container spacing={2} gap={2} sx={{ height: '100vh'}}>
+        <Grid item xs={12} display="flex" justifyContent="center" alignItems="end">
           <Card onChange={(value) => setDealer(value)} />
         </Grid>
         <Grid gap={2} item xs={12} flexDirection="row" display="flex" justifyContent="center">
